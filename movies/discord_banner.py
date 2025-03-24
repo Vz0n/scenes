@@ -1,3 +1,6 @@
+# This code generates a stupidly simple animation of a paraboloid shaped surface, showing it's tangent lines (partial derivatives) and 
+# the tangent plane to the point (1,1,2).
+# Nothing else.
 from manim import *
 
 import numpy

@@ -1,5 +1,5 @@
-# This code generates a stupidly simple animation of a paraboloid shaped surface, showing it's tangent lines (partial derivatives) and 
-# the tangent plane to the point (1,1,2).
+# This code generates a stupidly simple animation of a paraboloid shaped surface, showing it's tangent lines (1st order partial derivatives) 
+# and the tangent plane to the point (1,1,2).
 # Nothing else.
 from manim import *
 
@@ -15,6 +15,7 @@ def tangent_plane(u: float, v:float):
 def paraboloid(u:float, v:float) -> float:
     return u**2 + v**2
 
+# The partial derivatives are the same, only the variable changes.
 def partial(u):
     return 2*u
 

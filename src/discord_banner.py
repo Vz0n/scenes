@@ -25,11 +25,11 @@ def prepare_text(text: Text|MathTex):
 class DiscordBanner(ThreeDScene):
     def construct(self):
         coord_system = ThreeDAxes(x_range=DEFAULT_RANGE, y_range=DEFAULT_RANGE, z_range=DEFAULT_RANGE)
-        text = prepare_text(MathTex("r(u,v) = (u, v, u^2 + v^2)"))        
-        partial_text = lambda var : prepare_text(MathTex(f"\\fracRB\\partialRBrLBLBRB\\partialRB{var}LBLB = ({int(var == 'u')},{int(var == 'v')},2{var})".replace("RB", "{").replace("LB", "}")))
+        text = prepare_text(MathTex("z = x^2 + y^2"))        
+        partial_text = lambda var : prepare_text(MathTex(f"\\nabla_{var}z = 2{var}"))
 
-        par_u = partial_text("u")
-        par_v = partial_text("v")
+        par_u = partial_text("x")
+        par_v = partial_text("y")
         
         tsurface_eq = prepare_text(MathTex("2x + 2y - z = 2"))
 

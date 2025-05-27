@@ -9,7 +9,7 @@ TEXT_POSITION = (2.5, 5, 1.5)
 DEFAULT_RANGE = (-25, 25, 1)
 DEFAULT_UV_RANGE = (-25, 25)
 
-def tangent_plane(u: float, v:float):
+def plane(u: float, v:float):
     return 2*(u+v) - 2
 
 def paraboloid(u:float, v:float) -> float:
@@ -28,8 +28,8 @@ class DiscordBanner(ThreeDScene):
         text = prepare_text(MathTex("z = x^2 + y^2"))        
         partial_text = lambda var : prepare_text(MathTex(f"\\nabla_{var}z = 2{var}"))
 
-        par_u = partial_text("x")
-        par_v = partial_text("y")
+        par_x = partial_text("x")
+        par_y = partial_text("y")
         
         tsurface_eq = prepare_text(MathTex("2x + 2y - z = 2"))
 
@@ -42,8 +42,8 @@ class DiscordBanner(ThreeDScene):
         )
 
         # A tangent plane to (1, 1, r(1,1))
-        tangent_surface = coord_system.plot_surface(
-            tangent_plane,
+        tangent_plane = coord_system.plot_surface(
+            plane,
             u_range=DEFAULT_UV_RANGE,
             v_range=DEFAULT_UV_RANGE,
             resolution=(32, 32),
@@ -51,8 +51,8 @@ class DiscordBanner(ThreeDScene):
         )
 
         space = numpy.linspace(start=DEFAULT_UV_RANGE[0], stop=DEFAULT_UV_RANGE[1])
-        partial_delta = lambda edge : coord_system.plot_line_graph(x_values=space if edge == 'u' else space*0, 
-                                                                   y_values=space if edge == 'v' else space*0,
+        nabla = lambda edge : coord_system.plot_line_graph(x_values=space if edge == 'x' else space*0, 
+                                                                   y_values=space if edge == 'y' else space*0,
                                                                    z_values=partial(space))
 
         animation_queue = [
@@ -61,16 +61,16 @@ class DiscordBanner(ThreeDScene):
            Create(text),
            Wait(0.5),
            FadeOut(text),
-           Create(partial_delta('u')),
-           Create(par_u),
+           Create(nabla('x')),
+           Create(par_x),
            Wait(0.5),
-           FadeOut(par_u),
-           Create(partial_delta('v')),
-           Create(par_v),
+           FadeOut(par_x),
+           Create(nabla('y')),
+           Create(par_y),
            Wait(0.5),
-           FadeOut(par_v),
-           Create(tangent_surface),
-           Rotate(tangent_surface, angle=numpy.pi/2),
+           FadeOut(par_y),
+           Create(tangent_plane),
+           Rotate(tangent_plane, angle=numpy.pi/2),
            Create(tsurface_eq),
            Wait(1)
         ]

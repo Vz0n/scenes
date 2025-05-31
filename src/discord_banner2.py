@@ -3,8 +3,8 @@
 
 from manim import *
 
-DEFAULT_RANGE = [-25, 25]
-TEXT_POSITION = (2, 1, 0)
+DEFAULT_RANGE = [-25, 25, 1]
+TEXT_POSITION = (2.5, 1, 0)
 
 def parabola(x):
     return x**2 + 2*x + 1
@@ -15,21 +15,18 @@ def dy(x):
 class DiscordBanner(Scene):
     def construct(self):
         cart_plane = Axes(x_range=DEFAULT_RANGE, y_range=DEFAULT_RANGE)
-        
-        parabola_graph = FunctionGraph(parabola, color=PURPLE)
-        dydx_graph = FunctionGraph(dy, color=PURPLE_B)
 
-        func_text = MathTex("y = (x+1)^2").move_to(TEXT_POSITION)
-        dydx_text = MathTex("\\frac{dy}{dx} = 2(x+1)").move_to(TEXT_POSITION)
+        func_text = MathTex("y = (x+1)^2").move_to(TEXT_POSITION).scale(0.8)
+        dydx_text = MathTex("\\frac{dy}{dx} = 2(x+1)").move_to(TEXT_POSITION).scale(0.8)
 
         ANIMATIONS = [
             Create(cart_plane),
-            Create(parabola_graph),
+            Create(cart_plane.plot(parabola, color=PURPLE)),
             Wait(0.5),
             Create(func_text),
             Wait(0.5),
             FadeOut(func_text),
-            Create(dydx_graph),
+            Create(cart_plane.plot(dy, color=PURPLE)),
             Create(dydx_text),
             Wait(2)
         ]
